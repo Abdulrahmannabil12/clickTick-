@@ -1,0 +1,27 @@
+ 
+ @import url(//db.onlinewebfonts.com/c/1452689f8f54b00bba282ca8a364f5df?family=Elektra+Medium+Pro);
+
+$main_color: linear-gradient(180deg, #eb5a19 0%, #f28d01 99%);
+$main_Danger: #eb4e3d;
+$main_Success: #211c59;
+
+ 
+ 
+ .input-search .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-outline .mat-form-field-outline-end {
+   background: #ffffff !important; 
+}
+
+ .input-search .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-outline .mat-form-field-outline-start {
+  background: #ffffff !important;
+ 
+}
+
+ .input-search .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-outline .mat-form-field-outline-gap {
+  background: #ffffff !important; 
+}
+
+ .input-search .mat-form-field-wrapper .mat-form-field-flex  .mat-form-field-outline .mat-form-field-outline {
+  box-shadow: -1px -1px 5px #fff, 1px 1px 5px #babecc;
+  border-radius: 6px !important;
+  margin-top: 0.5em !important;
+} 

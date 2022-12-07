@@ -1,0 +1,192 @@
+<div class="row pl-5 pr-5 pt-2 pb-2">
+  <mat-label
+    *ngIf="inputType !== 'dropdown' || (inputType == 'dropdown' && dataSource)"
+    style="color: #221e59 !important; font-size: 14px !important"
+    >{{ fieldLabel }}</mat-label
+  >
+  <mat-form-field
+    [color]="'Accent'"
+    appearance="outline"
+    *ngIf="inputType != 'dropdown'"
+    [ngClass]="isSearch ? 'input-search' : ''"
+  >
+    <input
+      matInput
+      [formControlName]="controlName"
+      *ngIf="inputType != 'textarea' && inputType != 'dropdown'"
+      [required]="requiredField"
+      [maxlength]="maxlengthLimit"
+      [required]="requiredField"
+      [placeholder]="inputPlaceholder"
+      [OnlyNumber]="OnlyNumber"
+      [maxlength]="maxlengthLimit"
+      [type]="inputType"
+      [maxValue]="maxValue"
+      [minValue]="minValue"
+      (blur)="onBlur($event.target.value)"
+      (keydown)="onKeyDown($event)"
+    />
+
+    <textarea
+      matInput
+      [required]="requiredField"
+      [formControlName]="controlName"
+      rows="5"
+      *ngIf="inputType == 'textarea'"
+      placeholder="{{ inputPlaceholder }}"
+    >
+    </textarea>
+
+    <span *ngIf="matSuffix" matSuffix style="font-weight: bold">{{
+      matSuffix
+    }}</span>
+    <span *ngIf="matPrefix" matPrefix></span>
+    <mat-icon
+      *ngIf="matPrefixIcon"
+      matPrefix
+      style="color: #808285 !important; font-size: 1.5em !important"
+      >{{ matPrefixIcon }}</mat-icon
+    >
+    <mat-error
+      class="text-center"
+      *ngIf="FormGroup && controlHasError('required')"
+    >
+      <strong> {{ fieldLabel }} is required</strong>
+    </mat-error>
+    <mat-error class="text-center" *ngIf="FormGroup && isControlInvalid()">
+      <strong> {{ fieldLabel }} is Invalid </strong>
+    </mat-error>
+    <mat-error
+      class="text-center"
+      *ngIf="FormGroup && controlHasError('minlength')"
+    >
+      <strong>
+        {{ fieldLabel }} should have at least
+        {{ fieldMinLength }} symbols</strong
+      >
+    </mat-error>
+    <mat-error
+      class="text-center"
+      *ngIf="FormGroup && controlHasError('maxLength')"
+    >
+      <strong>
+        {{ fieldLabel }} should have maximum {{ fieldMaxLength }} symbols
+      </strong>
+    </mat-error>
+    <mat-error class="text-center" *ngIf="FormGroup && controlHasMinValError()">
+      <strong>
+        {{ fieldLabel }} should have minimum of {{ minimumValueNumber }}
+        {{ matSuffix ? matSuffix : "" }}
+      </strong>
+    </mat-error>
+
+    <mat-error class="text-center" *ngIf="FormGroup && controlHasMaxValError()">
+      <strong>
+        {{ fieldLabel }} Maximum Value of {{ maximumValueNumber }}
+        {{ matSuffix ? matSuffix : "" }}
+      </strong>
+    </mat-error>
+    <mat-hint align="end">
+      <strong> {{ hint }}</strong>
+    </mat-hint>
+    <mat-icon
+      style="font-size: 2rem !important; color: #f29100 !important"
+      [@fade]="true"
+      *ngIf="
+        FormGroup &&
+        !inputPassword &&
+        !matSuffix &&
+        lazyInput &&
+        isControlValid()
+      "
+      matSuffix
+      >youtube_searched_for</mat-icon
+    >
+    <mat-icon
+      *ngIf="toggleInputVisibility"
+      matSuffix
+      (click)="toggleInputType()"
+      >{{ inputPassword ? "visibility_off" : "visibility" }}
+    </mat-icon>
+    <!-- <mat-icon
+      [@fade]="true"
+      class="valid-input"
+      *ngIf="
+        FormGroup &&
+        !inputPassword &&
+        !matSuffix &&
+        !lazyInput &&
+        isControlValid()
+      "
+      matSuffix
+      >check_circle_outline</mat-icon
+    > -->
+    <!-- <mat-icon
+      [@fade]="true"
+      *ngIf="
+        FormGroup &&
+        (isControlInvalid() ||
+          controlHasError('maxLength') ||
+          controlHasError('minlength') ||
+          controlHasError('required')) &&
+        !matSuffix
+      "
+      class="invalid-input"
+      matSuffix
+      #error
+      >error_outline</mat-icon
+    > -->
+  </mat-form-field>
+
+  <mat-form-field
+    [color]="'Accent'"
+    appearance="outline"
+    *ngIf="inputType == 'dropdown' && dataSource"
+    [ngClass]="isSearch ? 'input-search' : ''"
+  >
+    <mat-select
+      (selectionChange)="onChangeValue($event)"
+      [formControlName]="controlName"
+      [required]="requiredField"
+      [placeholder]="inputPlaceholder"
+    >
+      <ng-container *ngFor="let data of dataSource">
+        <mat-option [value]="data[fieldValue]">{{
+          data[fieldName]
+        }}</mat-option></ng-container
+      >
+    </mat-select>
+    <mat-hint>{{ hint }}</mat-hint>
+    <mat-error
+      class="text-center"
+      *ngIf="FormGroup && controlHasError('required')"
+    >
+      <strong> {{ fieldLabel }} is required</strong>
+    </mat-error>
+    <mat-error class="text-center" *ngIf="FormGroup && isControlInvalid()">
+      <strong> {{ fieldLabel }} is Invalid </strong>
+    </mat-error>
+
+    <!-- <mat-icon
+    [@fade]="true"
+    class="valid-input"
+    *ngIf="FormGroup && !inputPassword && isControlValid()"
+    matSuffix
+    >check_circle_outline</mat-icon
+  > -->
+    <!-- <mat-icon
+      [@fade]="true"
+      *ngIf="
+        FormGroup &&
+        (isControlInvalid() ||
+          controlHasError('maxLength') ||
+          controlHasError('minlength') ||
+          controlHasError('required'))
+      "
+      class="invalid-input"
+      matSuffix
+      #error
+      >error_outline</mat-icon
+    > -->
+  </mat-form-field>
+</div>

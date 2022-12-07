@@ -1,0 +1,36 @@
+<!--begin::Title-->
+<div class="pb-13 pt-lg-0 pt-5">
+  <h3
+    class="font-weight-bolder text-dark font-size-h4 font-size-h1-lg text-center"
+  >
+    Welcome to RAMP
+  </h3>
+</div>
+<!--end::Title-->
+<form class="form" [formGroup]="loginForm" style="width: 25rem">
+  <!-- begin::Alert error-->
+  <ng-container *ngIf="hasError">
+    <div class="mb-10 alert alert-custom alert-light-danger alert-dismissible">
+      <div class="alert-text">The login details are incorrect</div>
+    </div>
+  </ng-container>
+  <!-- end::Alert error-->
+ 
+</form>
+
+<ng-template
+  #formError
+  let-control="control"
+  let-message="message"
+  let-validation="validation"
+>
+  <ng-container
+    *ngIf="control.hasError(validation) && (control.dirty || control.touched)"
+  >
+    <div class="fv-plugins-message-container">
+      <div class="fv-help-block">
+        {{ message }}
+      </div>
+    </div>
+  </ng-container>
+</ng-template>

@@ -1,0 +1,47 @@
+import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { UserModel } from '../../_models/user.model';
+import { environment } from '../../../../../environments/environment';
+import { AuthModel } from '../../_models/auth.model';
+
+const API_USERS_URL = `${environment.apiUrl}/users`;
+const API_ACCOUNT_URL = `${environment.apiUrl}/Account`;
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AuthHTTPService {
+  constructor(private http: HttpClient) { }
+
+  // public methods
+  login(email: string, password: string): Observable<any> {
+    return this.http.post<AuthModel>(API_USERS_URL, { email, password });
+  }
+
+  // CREATE =>  POST: add a new user to the server
+  createUser(user: UserModel): Observable<UserModel> {
+    return this.http.post<UserModel>(API_USERS_URL, user);
+  }
+
+  // Your server should check email => If email exists send link to the user and return true | If email doesn't exist return false
+  forgotPassword(email: string): Observable<boolean> {
+    return this.http.post<boolean>(`${API_USERS_URL}/forgot-password`, {
+      email,
+    });
+  }
+
+  getUserByToken(token: string): Observable<any> {
+    return this.http.post<any>(`${API_ACCOUNT_URL}/GetUserByToken?token=${token}`, {
+      token
+    });
+  }
+  authorize(token: string): Observable<any> {
+    if (!token) {
+      return of(undefined);
+    }
+    return this.http.post<any>(`${API_ACCOUNT_URL}/Authorize?token=${token}`, {
+      token
+    });
+  }
+}
